@@ -1,3 +1,13 @@
+blog/target/
+blog/.idea
+blog/.mvn
+mongo/target
+mongo/.idea
+mongo/.mvn
+pagination/target
+pagination/.idea
+pagination/.mvn
+target/
 target/
 pom.xml.tag
 pom.xml.releaseBackup
