@@ -1,5 +1,14 @@
 spring:
-  application:
-    name: blog
   config:
     import: 'configserver:http://localhost:8200'
+  application:
+    name: blog-service
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8781/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    instance-id: ${spring.application.name}-${random.int}
+    hostname: localhost

@@ -1,2 +1,21 @@
+spring:
+  application:
+    name: pagination-service
+
 server:
-  port: 8500
+  port: 0
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8781/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    instance-id: ${spring.application.name}-${random.int}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info

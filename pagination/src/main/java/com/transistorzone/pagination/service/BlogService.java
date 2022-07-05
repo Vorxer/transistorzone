@@ -13,4 +13,7 @@ List<ArticleMetadata> getMetadata(int number);
 
 List<ArticleMetadata> getMetadata(int from, int to);
 
+String getUser(Long id);
+
+
 }

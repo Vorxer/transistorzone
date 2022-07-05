@@ -1,6 +1,6 @@
 spring:
   application:
-    name: site
+    name: user-service
 server:
   port: 0
 eureka:

@@ -21,34 +21,53 @@ public class BlogServiceImpl implements BlogService {
     @Autowired
     RestTemplate restTemplate;
 
-    String blogUrl = "http://localhost:8080/blog/";
+    String blogUrl = "http://BLOG-SERVICE/blog/";
+
+    String userUrl = "http://USER-SERVICE/user/";
 
     @Override
     public List<ArticleMetadata> getMetadata(int from, int to) {
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new Object());
         String url = blogUrl + "page" + "/" + from + "/" + to;
         ResponseEntity<ArticleMetaDataList> responseEntity = restTemplate.exchange(url, HttpMethod.GET,null, ArticleMetaDataList.class);
-        return Objects.requireNonNull(responseEntity.getBody()).getArticleMetaData();
+        List<ArticleMetadata> articleMetadata = Objects.requireNonNull(responseEntity.getBody()).getArticleMetaData();
+        articleMetadata.forEach(a -> a = appendAuthor(a));
+        return articleMetadata;
     }
 
     @Override
     public List<ArticleMetadata> getMetadata(int no) {
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new Object());
         String url = blogUrl + "page/0/10";
         ResponseEntity<ArticleMetaDataList> responseEntity = restTemplate.exchange(url, HttpMethod.GET,null, ArticleMetaDataList.class);
-        return Objects.requireNonNull(responseEntity.getBody()).getArticleMetaData();
+        List<ArticleMetadata> articleMetadata = Objects.requireNonNull(responseEntity.getBody()).getArticleMetaData();
+        articleMetadata.forEach(a -> a = appendAuthor(a));
+        return articleMetadata;
     }
 
     @Override
     public Article getArticle(int id) {
-        HttpEntity<Object> httpEntity = new HttpEntity<>(new Object());
         String url = UriComponentsBuilder.fromHttpUrl(blogUrl + "/article")
                 .queryParam("id", id).toUriString();
         ResponseEntity<Response> responseEntity = restTemplate.exchange(url, HttpMethod.GET,null, Response.class);
-        return responseEntity.getBody().getBody();
+        return appendAuthor(responseEntity.getBody().getBody());
     }
 
-    private void appendAuthor(){
+    private Article appendAuthor(Article article){
+        String userName = getUser(article.getId());
+        article.setAuthorId(userName);
+        return article;
+    }
 
+    private ArticleMetadata appendAuthor(ArticleMetadata article){
+        String userName = getUser(article.getId());
+        article.setAuthorId(userName);
+        return article;
+    }
+
+    @Override
+    public String getUser(Long id) {
+        String url = UriComponentsBuilder.fromHttpUrl(userUrl + "/userName")
+                .queryParam("id", id).toUriString();
+        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET,null, String.class);
+        return responseEntity.getBody();
     }
 }

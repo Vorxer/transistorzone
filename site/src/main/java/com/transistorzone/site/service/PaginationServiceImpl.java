@@ -20,22 +20,24 @@ public class PaginationServiceImpl implements PaginationService {
     @Autowired
     RestTemplate restTemplate;
 
-    String paginationUrl = "http://localhost:8500/pagination/";
+    String paginationUrl = "http://PAGINATION-SERVICE/pagination/";
 
     @Override
     public List<ArticleMetadata> blog(int from, int to) {
         HttpEntity<Object> httpEntity = new HttpEntity<>(new Object());
         String url = paginationUrl+ "articleMetadata/"+ + from + "/" + to;
-        ResponseEntity<ArticleMetaDataList> responseEntity = restTemplate.exchange(url, HttpMethod.GET,null, ArticleMetaDataList.class);
-        return Objects.requireNonNull(responseEntity.getBody()).getArticleMetaData();
+        List<ArticleMetadata> articleMetaDataList = Objects.requireNonNull(restTemplate.exchange(url, HttpMethod.GET, null, ArticleMetaDataList.class).getBody()).getArticleMetaData();
+        articleMetaDataList.forEach(ArticleMetadata::setDate);
+        return articleMetaDataList;
     }
 
     @Override
     public List<ArticleMetadata> blog(int no) {
         HttpEntity<Object> httpEntity = new HttpEntity<>(new Object());
         String url = paginationUrl + "articleMetadata/" + no;
-        ResponseEntity<ArticleMetaDataList> responseEntity = restTemplate.exchange(url, HttpMethod.GET,null, ArticleMetaDataList.class);
-        return Objects.requireNonNull(responseEntity.getBody()).getArticleMetaData();
+        List<ArticleMetadata> articleMetaDataList = Objects.requireNonNull(restTemplate.exchange(url, HttpMethod.GET, null, ArticleMetaDataList.class).getBody()).getArticleMetaData();
+        articleMetaDataList.forEach(ArticleMetadata::setDate);
+        return articleMetaDataList;
     }
 
     @Override

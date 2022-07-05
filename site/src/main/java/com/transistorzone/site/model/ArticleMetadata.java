@@ -84,6 +84,6 @@ public class ArticleMetadata {
     }
 
     public void setDate(){
-        date= offsetDateTime.toLocalDateTime().toString().split("T")[0];
+        date = offsetDateTime.toLocalDateTime().toString().split("T")[0];
     }
 }
