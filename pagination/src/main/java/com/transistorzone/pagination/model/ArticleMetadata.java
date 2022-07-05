@@ -1,21 +1,19 @@
-package com.transistorzone.blog.model;
+package com.transistorzone.pagination.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class ArticleMetadata {
 
-import javax.annotation.processing.Generated;
-import java.time.OffsetDateTime;
-
-import java.util.List;
-
-@Document(collection = "article")
-public class Article {
-
-    public Article() {
+    private ArticleMetadata() {
     }
 
-    @Id
-    private Long id;
+    public ArticleMetadata(Article article) {
+        id = article.getId();
+        title = article.getTitle();
+        offsetDateTime = article.getOffsetDateTime();
+        authorId = article.getAuthorId();
+        subtitle = article.getSubtitle();
+    }
+
+    private long id;
 
     private String title;
 
@@ -25,15 +23,11 @@ public class Article {
 
     private String subtitle;
 
-    private String content;
-
-    private List<String> paragraphs;
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -67,21 +61,5 @@ public class Article {
 
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public List<String> getParagraphs() {
-        return paragraphs;
-    }
-
-    public void setParagraphs(List<String> paragraphs) {
-        this.paragraphs = paragraphs;
     }
 }

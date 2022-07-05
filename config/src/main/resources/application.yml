@@ -4,8 +4,6 @@ spring:
       server:
         git:
           uri: https://github.com/Vorxer/transistorzone-config
-          username: Vorxer
-          password: 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
           default-label: master
           search-paths:
             - '*service'

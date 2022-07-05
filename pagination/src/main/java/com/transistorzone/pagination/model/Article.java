@@ -1,20 +1,12 @@
-package com.transistorzone.blog.model;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.annotation.processing.Generated;
-import java.time.OffsetDateTime;
+package com.transistorzone.pagination.model;
 
 import java.util.List;
 
-@Document(collection = "article")
 public class Article {
 
     public Article() {
     }
 
-    @Id
     private Long id;
 
     private String title;

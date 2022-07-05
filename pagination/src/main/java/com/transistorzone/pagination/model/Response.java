@@ -1,4 +1,4 @@
-package com.transistorzone.blog.model;
+package com.transistorzone.pagination.model;
 
 public class Response {
 
@@ -22,7 +22,7 @@ public class Response {
         this.message = message;
     }
 
-    public Object getBody() {
+    public Article getBody() {
         return body;
     }
 

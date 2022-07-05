@@ -1,25 +1,19 @@
-package com.transistorzone.blog.model;
+package com.transistorzone.site.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.annotation.processing.Generated;
 import java.time.OffsetDateTime;
-
 import java.util.List;
 
-@Document(collection = "article")
 public class Article {
 
     public Article() {
     }
 
-    @Id
+
     private Long id;
 
     private String title;
 
-    private Long offsetDateTime;
+    private OffsetDateTime offsetDateTime;
 
     private String authorId;
 
@@ -45,11 +39,11 @@ public class Article {
         this.title = title;
     }
 
-    public Long getOffsetDateTime() {
+    public OffsetDateTime getOffsetDateTime() {
         return offsetDateTime;
     }
 
-    public void setOffsetDateTime(Long offsetDateTime) {
+    public void setOffsetDateTime(OffsetDateTime offsetDateTime) {
         this.offsetDateTime = offsetDateTime;
     }
 
